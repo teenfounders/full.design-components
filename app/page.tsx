@@ -1,113 +1,164 @@
-import Image from 'next/image'
-
+"use client";
+import Button from "@/components/button";
+import Image from "next/image";
+import { GoArrowUpRight } from "react-icons/go";
+import ImageMarquee from "@/components/ImageMerquee";
+import LeftMoveMarquee from "@/components/LeftMoveMarquee";
+import RightMoveMarquee from "@/components/RightMoveMarquee";
+import HelpToSuccess from "@/components/HelpToSuccess";
+import ParallelScroll from "@/components/ParallelScroll";
+import WhyDesign from "@/components/WhyDesign";
+import Unlimited from "@/components/Unlimited";
+import f1 from "@/assets/f1.png";
+import f2 from "@/assets/f2.png";
+import f3 from "@/assets/f3.png";
+import f4 from "@/assets/f4.png";
+import logodesign from "@/assets/logo.full.desgin.svg";
+import f5 from "@/assets/f5.png";
+import { useEffect, useState } from "react";
+import HowDoesItWork from "@/components/HowDoesItWork";
+import SubscriptComponent from "@/components/SubscriptComponent";
+import Footer from "@/components/Footer";
 export default function Home() {
+  const [show, setShow] = useState(true);
+  const [showDownload, setShowDownload] = useState(true);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const controlNavbar = () => {
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    setScrollY(scrollY);
+    if (scrollY > 200) {
+      if (scrollY > prevScrollY) {
+        // Scrolling down
+        setShow(true);
+      } else {
+        // Scrolling up
+        setShow(false);
+      }
+
+      // Update the previous scroll position
+      setPrevScrollY(scrollY);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar);
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [scrollY]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div
+      className="min-h-screen  py-20 flex flex-col items-center   justify-center relative w-full "
+      id="intro"
+    >
+      <div
+        className={`fixed z-50 transition-all  ease-in-out duration-500 ${
+          show
+            ? "opacity-100 transform translate-y-0"
+            : "opacity-0 transform translate-y-full"
+        } mx-auto max-md:px-10 bottom-5 h-full  w-full max-h-[81px]  md:max-w-[450px]`}
+      >
+        <div className="flex items-center flex-nowrap gap-0 shadow-xl bg-[#FFFFFF] h-full justify-between p-5  rounded-3xl">
+          {/* <div className="p-2 flex md:flex justify-around rounded-[20px] flex-nowrap h-full items-center w-full relative bg-white"> */}
+          <Image
+            src={logodesign}
+            className="max-w-full object-cover max-md:w-[81px] max-h-full"
+            width={100}
+            height={80}
+            alt="qrcode"
+          />
+          <h1 className="uppercase flex border-2 items-center  border-black py-[10px] px-5 rounded-2xl font-black font-mona-sans text-[14px] text-[#080808] ">
+            Book a call <GoArrowUpRight size={30} className="text-semibold " />
+          </h1>
         </div>
       </div>
+      <div className=" flex items-center flex-col  gap-10 p-0 relative h-screen w-full  ">
+        <div className="border-[3px] px-[14px] py-[6px] border-[#ff1515] items-center justify-center rounded-xl flex-col gap-10 min-h-min max-w-[540px] overflow-visible relative min-w-min">
+          <div className="outline-none flex flex-col justify-start shrink-0  text-[#ff1515]">
+            <h5 className="text-sm lg:text-2xl  font-extrabold uppercase -tracking-normal ">
+              A Founder&apos;s Best Friend
+            </h5>
+          </div>
+        </div>
+        <div className="items-center flex grow-0 shrink-0 basis-0 flex-col flex-wrap gap-5 min-h-min justify-center overflow-visible p-0 relative w-full ">
+          <div className=" outline-none flex flex-col justify-start shrink-0 grow-0 basis-0">
+            <h1 className=" md:text-[77px] text-[42px] lg:text-[100px] font-bold lg:font-extrabold  leading-none text-center tracking-tighter break-words  uppercase">
+              We make designs that drive big results
+            </h1>
+          </div>
+          <div className=" outline-none flex flex-col justify-start shrink-0 grow-0 basis-0 max-w-[1080px]  relative  w-full ">
+            <p
+              style={{ lineHeight: 1.4 }}
+              className="text-center max-md:text-lg md:text-2xl lg:text-4xl font-medium -tracking-wider leading-9"
+            >
+              A full-service design agency helping you grow your business.
+              Reduce costs and move quickly with our world-class team. Fast
+              delivery, no contracts. Pause or cancel anytime.
+            </p>
+          </div>
+        </div>
+        <div className="items-center flex  gap-10 min-h-min justify-center overflow-visible p-0 relative w-full">
+          <div className="">
+            <Button
+              className="border-4  border-black rounded-xl md:rounded-3xl md:px-[40px] md:py-[20px]"
+              text="Book a call"
+            />
+          </div>
+          <div className="">
+            <Button
+              type="button"
+              text="View pricing"
+              className="border-4 border-black text-black md:px-[40px] md:py-[20px] rounded-xl md:rounded-3xl leading-tight bg-transparent "
+            />
+          </div>
+        </div>
+        <div className="items-center ltr:blur-xl  flex max-w-full w-full px-3 backdrop-blur-2xl justify-center flex-col">
+          <div className="max-w-full  w-full broder-s-4 border-white   flex flex-col items-center min-h-min   relative">
+            <h4 className="xl:text-[42px] md:text-[34px] text-[26px] -tracking-[0.04em] font-bold ">
+              Trusted by brands across the globe
+            </h4>
+            <div className="w-full px-10 ">
+              <RightMoveMarquee />
+              <LeftMoveMarquee />
+            </div>
+          </div>
+        </div>
+        <div className="mt-10">
+          <ImageMarquee />
+        </div>
+        <div className="my-10">
+          <HelpToSuccess />
+        </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+        <ParallelScroll />
+        <div className="mt-[100px]"></div>
+        <div className="">
+          <ImageMarquee />
+        </div>
+        <div className="">
+          <WhyDesign />
+        </div>
+        <div className="w-full">
+          <Unlimited />
+        </div>
+
+        <div className=" max-md:my-32 w-full h-full max-h-[375px] ">
+          <ImageMarquee f1={f1} f2={f2} f3={f3} f4={f4} f5={f5} />
+        </div>
+        <div className="w-full">
+          <HowDoesItWork />
+        </div>
+        <div className="w-full">
+          <SubscriptComponent />
+        </div>
+        <div className="w-full">
+          <Footer />
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
